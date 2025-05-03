@@ -12,7 +12,7 @@ public class Task {
     int id;
     String group;
     boolean isCompleted;
-    String dueDate;  // Format: YYYY-MM-DD
+    String dueDate; 
     String header;
     String description;
 
