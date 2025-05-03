@@ -106,6 +106,7 @@ public class ComProg_FinalProject {
 
         switch (choice) {
             case "1": addTask(); break;
+            // other options to be added pa
         }
     }
 
