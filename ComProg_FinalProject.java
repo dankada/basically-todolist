@@ -1,17 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.mycompany.comprog_finalproject;
 import java.util.*;
 import java.io.*;
 
 public class ComProg_FinalProject {
-    static Scanner sc = new Scanner(System.in);
-    static ArrayList<Task> tasks = new ArrayList<>();
-    static int taskCounter = 1;
+    public static Scanner sc = new Scanner(System.in);
+    public static ArrayList<Task> tasks = new ArrayList<>();
+    public static String currentUsername = "";
+    public static int taskCounter = 1;
 
     public static void main(String[] args) throws IOException {
+        login();  
+        loadTasks();  
+        
         while (true) {
             System.out.println("\nTo Do List App");
             System.out.println("[1] View Entries");
@@ -19,7 +19,7 @@ public class ComProg_FinalProject {
             System.out.println("[3] Exit");
             System.out.print("Choose: ");
             String choice = sc.nextLine();
-
+            
             switch (choice) {
                 case "1": viewEntries(); break;
                 case "2": editEntries(); break;
@@ -29,10 +29,49 @@ public class ComProg_FinalProject {
         }
     }
 
+    public static void login() {
+        System.out.print("Enter username: ");
+        currentUsername = sc.nextLine();
+        System.out.print("Enter password: ");
+        String password = sc.nextLine();
+
+        System.out.println("Login successful!");
+    }
+
+    public static void loadTasks() throws IOException {
+        File userFolder = new File(currentUsername);
+        if (!userFolder.exists()) {
+            userFolder.mkdir();  
+        }
+
+        File[] files = userFolder.listFiles((dir, name) -> name.endsWith(".txt"));
+        if (files == null) return;
+
+        for (File file : files) {
+            Scanner reader = new Scanner(file);
+            int id = Integer.parseInt(reader.nextLine());
+            String group = reader.nextLine();
+            boolean completed = Boolean.parseBoolean(reader.nextLine());
+            String dueDate = reader.nextLine();
+            String header = reader.nextLine();
+            String description = reader.nextLine();
+            tasks.add(new Task(id, group, completed, dueDate, header, description));
+            if (id >= taskCounter) taskCounter = id + 1;
+            reader.close();
+        }
+    }
+
     public static void viewEntries() {
         System.out.println("\n---- VIEW ENTRIES ----");
+        if (tasks.size() == 0) {
+            System.out.println("No tasks available.");
+            return;
+        }
+        System.out.printf("%-5s %-10s %-10s %-15s %-20s\n", "ID", "Group", "Status", "Due Date", "Header");
+        System.out.println("----------------------------------------------------------");
         for (Task task : tasks) {
-            System.out.println(task);
+            System.out.printf("%-5d %-10s %-10s %-15s %-20s\n",
+                task.id, task.group, task.getStatusIcon(), task.dueDate, task.header);
         }
         System.out.println("[1] View Task | [4] Return");
         String choice = sc.nextLine();
@@ -73,25 +112,25 @@ public class ComProg_FinalProject {
     public static void addTask() throws IOException {
         System.out.println("\n---- ADD TASK ----");
         String group = chooseGroup();
-        boolean completed = chooseStatus();
+        boolean completed = false;
         System.out.print("Due Date (YYYY-MM-DD): ");
         String dueDate = sc.nextLine();
         System.out.print("Header: ");
         String header = sc.nextLine();
         System.out.print("Description: ");
         String description = sc.nextLine();
-
         Task newTask = new Task(taskCounter, group, completed, dueDate, header, description);
         tasks.add(newTask);
 
-        File file = new File("task" + taskCounter + ".txt");
+        File userFolder = new File(currentUsername);
+        File file = new File(userFolder, "task" + taskCounter + ".txt");
         FileWriter fw = new FileWriter(file);
-        fw.write("ID: " + taskCounter + "\n");
-        fw.write("Group: " + group + "\n");
-        fw.write("Status: " + (completed ? "Completed" : "Incomplete") + "\n");
-        fw.write("Due Date: " + dueDate + "\n");
-        fw.write("Header: " + header + "\n");
-        fw.write("Description: " + description + "\n");
+        fw.write(taskCounter + "\n");
+        fw.write(group + "\n");
+        fw.write(completed + "\n");
+        fw.write(dueDate + "\n");
+        fw.write(header + "\n");
+        fw.write(description + "\n");
         fw.close();
 
         System.out.println("Task saved!");
@@ -114,4 +153,3 @@ public class ComProg_FinalProject {
         return sc.nextLine().equals("1");
     }
 }
-

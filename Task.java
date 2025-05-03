@@ -26,7 +26,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return isCompleted ? "✅" : "❌";
+        return isCompleted ? "/" : "X";
     }
 
     public String toString() {
