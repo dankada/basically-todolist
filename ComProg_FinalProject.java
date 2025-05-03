@@ -94,7 +94,7 @@ public class ComProg_FinalProject {
         fw.write("Description: " + description + "\n");
         fw.close();
 
-        System.out.println("Task saved to " + file.getName());
+        System.out.println("Task saved!");
         taskCounter++;
     }
 
