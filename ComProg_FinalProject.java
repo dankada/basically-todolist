@@ -72,7 +72,7 @@ public class ComProg_FinalProject {
                         break;
                     }
                 }
-            } else {
+            } else if(option.equals("1")) {
                 while (true) {
                     System.out.print("Enter username: ");
                     currentUsername = sc.nextLine();
@@ -170,11 +170,21 @@ public class ComProg_FinalProject {
         }
 
         System.out.println("--------------------------------------------------------------------------");
-        System.out.println("[1] View Task | [4] Return");
-        String choice = sc.nextLine();
+        String choice = "";
+        while (!choice.equals("1") && !choice.equals("4")) {
+            System.out.println("[1] View Task | [4] Return");
+            System.out.print("Choice: ");
+            choice = sc.nextLine();
+
+            if (!choice.equals("1") && !choice.equals("4")) {
+                System.out.println("Invalid choice. Please enter 1 or 4.");
+            }
+        }
+
         if (choice.equals("1")) {
             System.out.print("Enter Task Number: ");
-            int num = Integer.parseInt(sc.nextLine());
+            String input = sc.nextLine();
+            int num = Integer.parseInt(input);
             viewTask(num);
         }
     }
