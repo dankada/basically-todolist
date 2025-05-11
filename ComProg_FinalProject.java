@@ -248,13 +248,29 @@ public class ComProg_FinalProject {
             }
         }
         System.out.println("--------------------------------------------------------------------------");
-        System.out.println("[1] Add Task | [2] Edit Task | [3] Remove Task/s | [7] Return");
-        String choice = sc.nextLine();
+        String choice = "";
+        while (!choice.equals("1") && !choice.equals("2") && !choice.equals("3") && !choice.equals("7")) {
+            System.out.println("[1] Add Task | [2] Edit Task | [3] Remove Task/s | [7] Return");
+            System.out.print("Choice: ");
+            choice = sc.nextLine();
+
+            if (!choice.equals("1") && !choice.equals("2") && !choice.equals("3") && !choice.equals("7")) {
+                System.out.println("Invalid choice.");
+            }
+        }
 
         switch (choice) {
-            case "1": addTask(); break;
-            case "2": editTask(); break;
-            case "3": removeTask(); break;
+            case "1":
+                addTask();
+                break;
+            case "2":
+                editTask();
+                break;
+            case "3":
+                removeTask();
+                break;
+            case "7":
+                break; 
         }
     }
     
@@ -538,15 +554,30 @@ public class ComProg_FinalProject {
 
 
     public static String chooseGroup() {
-        System.out.println("Group:\n[1] Work\n[2] School\n[3] House\n[4] Other");
-        switch (sc.nextLine()) {
-            case "1": return "Work";
-            case "2": return "School";
-            case "3": return "House";
-            case "4": return "Other";
-            default: return "Other";
+        String input = "";
+        while (!input.equals("1") && !input.equals("2") && !input.equals("3") && !input.equals("4")) {
+            System.out.println("Group:\n[1] Work\n[2] School\n[3] House\n[4] Other");
+            System.out.print("Choose group: ");
+            input = sc.nextLine();
+
+            if (!input.equals("1") && !input.equals("2") && !input.equals("3") && !input.equals("4")) {
+                System.out.println("Invalid choice.");
+            }
         }
+
+        switch (input) {
+            case "1":
+                return "Work";
+            case "2":
+                return "School";
+            case "3":
+                return "House";
+            case "4":
+                return "Other";
+        }
+        return "Other";
     }
+
 
     public static boolean chooseStatus() {
         System.out.println("Status:\n[1] Completed\n[2] Incomplete");
