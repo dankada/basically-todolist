@@ -188,29 +188,6 @@ public class ComProg_FinalProject {
             viewTask(num);
         }
     }
-    
-    public static String getValidDate() {
-        String date;
-        while (true) {
-            System.out.print("Due Date (YYYY-MM-DD): ");
-            date = sc.nextLine();
-
-            if (date.matches("\\d{4}-\\d{2}-\\d{2}")) {
-                String[] parts = date.split("-");
-                int year = Integer.parseInt(parts[0]);
-                int month = Integer.parseInt(parts[1]);
-                int day = Integer.parseInt(parts[2]);
-
-                if (month >= 1 && month <= 12 && day >= 1 && day <= 31) {
-                    return date; 
-                } else {
-                    System.out.println("Invalid date. Please ensure the month is between 01 and 12, and day is valid.");
-                }
-            } else {
-                System.out.println("Invalid format. Please enter the date in YYYY-MM-DD format.");
-            }
-        }
-    }
 
     public static void viewTask(int num) {
         if (num <= 0 || num > tasks.size()) {
