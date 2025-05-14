@@ -209,7 +209,7 @@ public class FinalProject {
         System.out.println("\n--- VIEWING TASK " + num + " ---");
         System.out.println("[" + t.getDueDate() + "] " + t.getHeader());
         System.out.println(t.getDescription());
-        System.out.println("[1] Return");
+        System.out.println("press any key to return");
         sc.nextLine();
     }
 
@@ -288,6 +288,7 @@ public class FinalProject {
 
         System.out.print("Enter new due date (yyyy-mm-dd, leave blank to keep current): ");
         String newDate = sc.nextLine();
+        
         boolean hasDate = false;
         for (int i = 0; i < newDate.length(); i++) {
             if (newDate.charAt(i) != ' ') {
@@ -409,6 +410,7 @@ public class FinalProject {
             System.out.println("--------------------------------------------------------------------------");
             System.out.print("Enter Task Numbers (ex. [1, 3, 5]): ");
             String input = sc.nextLine();
+           
 
             input = input.replace("[", "").replace("]", "").replace(",", " ");
             String[] parts = input.split(" ");
@@ -422,6 +424,7 @@ public class FinalProject {
                     }
                 }
             }
+            
 
             if (indexes.size() == 0) {
                 System.out.println("No valid task numbers provided.");
@@ -431,6 +434,8 @@ public class FinalProject {
             System.out.print("Are you sure you want to remove these " + indexes.size() + " tasks? (yes/no): ");
             String confirm = sc.nextLine();
 
+            
+            
             if (confirm.equalsIgnoreCase("yes")) {
                 for (int i = 0; i < indexes.size() - 1; i++) {
                     for (int j = i + 1; j < indexes.size(); j++) {
@@ -441,6 +446,7 @@ public class FinalProject {
                         }
                     }
                 }
+                
                 
                 for (int idx : indexes) {
                     Task removed = tasks.get(idx);
